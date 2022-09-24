@@ -45,6 +45,7 @@ public class AccountControllerTest {
     @BeforeEach
     public void setUp() {
         baseUrl += port + "/api/v1/accounts";
+        accountRepository.deleteAll();
     }
 
     @Test
@@ -53,8 +54,8 @@ public class AccountControllerTest {
         Account account = givenAccount();
 
         // When
-        baseUrl += "/" + account.getId() + "/balance";
-        AccountBalanceDTO response = restTemplate.getForObject(baseUrl, AccountBalanceDTO.class);
+        String url = baseUrl + "/" + account.getId() + "/balance";
+        AccountBalanceDTO response = restTemplate.getForObject(url, AccountBalanceDTO.class);
 
         // Then
         assertNotNull(response);
@@ -71,8 +72,8 @@ public class AccountControllerTest {
         // Given no account
 
         // When
-        baseUrl += "/777777/balance";
-        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(baseUrl, HttpMethod.GET, null, ExceptionMapper.ErrorResponse.class);
+        String url = baseUrl + "/777777/balance";
+        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(url, HttpMethod.GET, null, ExceptionMapper.ErrorResponse.class);
 
         // Then
         assertEquals(HttpStatus.NOT_FOUND, exchange.getStatusCode());
@@ -88,8 +89,8 @@ public class AccountControllerTest {
         HttpEntity<TransferRequestDTO> entity = new HttpEntity<>(dto);
 
         // When
-        baseUrl += "/" + sender.getId() + "/transfer";
-        ResponseEntity<AccountBalanceDTO> exchange = restTemplate.exchange(baseUrl, HttpMethod.PUT, entity, AccountBalanceDTO.class);
+        String url = baseUrl + "/" + sender.getId() + "/transfer";
+        ResponseEntity<AccountBalanceDTO> exchange = restTemplate.exchange(url, HttpMethod.PUT, entity, AccountBalanceDTO.class);
 
         // Then
         assertNotNull(exchange.getBody());
@@ -116,8 +117,8 @@ public class AccountControllerTest {
         HttpEntity<TransferRequestDTO> entity = new HttpEntity<>(dto);
 
         // When
-        baseUrl += "/" + sender.getId() + "/transfer";
-        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(baseUrl, HttpMethod.PUT, entity, ExceptionMapper.ErrorResponse.class);
+        String url = baseUrl + "/" + sender.getId() + "/transfer";
+        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(url, HttpMethod.PUT, entity, ExceptionMapper.ErrorResponse.class);
 
         // Then
         assertEquals(HttpStatus.NOT_FOUND, exchange.getStatusCode());
@@ -132,8 +133,8 @@ public class AccountControllerTest {
         HttpEntity<TransferRequestDTO> entity = new HttpEntity<>(dto);
 
         // When
-        baseUrl += "/7777777/transfer";
-        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(baseUrl, HttpMethod.PUT, entity, ExceptionMapper.ErrorResponse.class);
+        String url = baseUrl + "/7777777/transfer";
+        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(url, HttpMethod.PUT, entity, ExceptionMapper.ErrorResponse.class);
 
         // Then
         assertEquals(HttpStatus.NOT_FOUND, exchange.getStatusCode());
@@ -149,8 +150,8 @@ public class AccountControllerTest {
         HttpEntity<TransferRequestDTO> entity = new HttpEntity<>(dto);
 
         // When
-        baseUrl += "/" + sender.getId() + "/transfer";
-        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(baseUrl, HttpMethod.PUT, entity, ExceptionMapper.ErrorResponse.class);
+        String url = baseUrl + "/" + sender.getId() + "/transfer";
+        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(url, HttpMethod.PUT, entity, ExceptionMapper.ErrorResponse.class);
 
         // Then
         assertEquals(HttpStatus.BAD_REQUEST, exchange.getStatusCode());
@@ -166,8 +167,8 @@ public class AccountControllerTest {
         HttpEntity<TransferRequestDTO> entity = new HttpEntity<>(dto);
 
         // When
-        baseUrl += "/" + sender.getId() + "/transfer";
-        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(baseUrl, HttpMethod.PUT, entity, ExceptionMapper.ErrorResponse.class);
+        String url = baseUrl + "/" + sender.getId() + "/transfer";
+        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(url, HttpMethod.PUT, entity, ExceptionMapper.ErrorResponse.class);
 
         // Then
         assertEquals(HttpStatus.BAD_REQUEST, exchange.getStatusCode());
@@ -182,8 +183,8 @@ public class AccountControllerTest {
         HttpEntity<TransferRequestDTO> entity = new HttpEntity<>(dto);
 
         // When
-        baseUrl += "/" + sender.getId() + "/transfer";
-        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(baseUrl, HttpMethod.PUT, entity, ExceptionMapper.ErrorResponse.class);
+        String url = baseUrl + "/" + sender.getId() + "/transfer";
+        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(url, HttpMethod.PUT, entity, ExceptionMapper.ErrorResponse.class);
 
         // Then
         assertEquals(HttpStatus.BAD_REQUEST, exchange.getStatusCode());
@@ -197,8 +198,8 @@ public class AccountControllerTest {
         List<Transaction> transactions = givenTransactions(account1.getId(), account2.getId());
 
         // When
-        baseUrl += "/" + account1.getId() + "/statements/mini";
-        AccountStatementItemDTO[] response = restTemplate.getForObject(baseUrl, AccountStatementItemDTO[].class);
+        String url = baseUrl + "/" + account1.getId() + "/statements/mini";
+        AccountStatementItemDTO[] response = restTemplate.getForObject(url, AccountStatementItemDTO[].class);
 
         // Then
         assertNotNull(response);
@@ -227,8 +228,8 @@ public class AccountControllerTest {
         Account account = givenAccount();
 
         // When
-        baseUrl += "/" + account.getId();
-        AccountDTO response = restTemplate.getForObject(baseUrl, AccountDTO.class);
+        String url = baseUrl + "/" + account.getId();
+        AccountDTO response = restTemplate.getForObject(url, AccountDTO.class);
 
         // Then
         assertNotNull(response);
@@ -242,8 +243,8 @@ public class AccountControllerTest {
         // Given no account
 
         // When
-        baseUrl += "/777777";
-        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(baseUrl, HttpMethod.GET, null, ExceptionMapper.ErrorResponse.class);
+        String url = baseUrl + "/777777";
+        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(url, HttpMethod.GET, null, ExceptionMapper.ErrorResponse.class);
 
         // Then
         assertEquals(HttpStatus.NOT_FOUND, exchange.getStatusCode());
@@ -254,6 +255,7 @@ public class AccountControllerTest {
         // Given
         Account account1 = givenAccount();
         Account account2 = givenAccount();
+        List<Account> all = accountRepository.findAll();
 
         // When
         AccountDTO[] response = restTemplate.getForObject(baseUrl, AccountDTO[].class);
@@ -275,8 +277,6 @@ public class AccountControllerTest {
         Account account = givenAccount();
 
         // When
-        baseUrl += "/" + account.getId();
-
         AccountDTO dto = AccountDTO.builder()
                 .id(account.getId())
                 .balance(account.getBalance())
@@ -285,7 +285,8 @@ public class AccountControllerTest {
                 .build();
 
         HttpEntity<AccountDTO> entity = new HttpEntity<>(dto);
-        ResponseEntity<AccountDTO> response = restTemplate.exchange(baseUrl, HttpMethod.PUT, entity, AccountDTO.class);
+        String url = baseUrl + "/" + account.getId();
+        ResponseEntity<AccountDTO> response = restTemplate.exchange(url, HttpMethod.PUT, entity, AccountDTO.class);
 
         // Then
         assertNotNull(response);
@@ -299,11 +300,11 @@ public class AccountControllerTest {
 
         // When
 
-        baseUrl += "/777777";
         HttpEntity<AccountDTO> entity = new HttpEntity<>(AccountDTO.builder()
                 .state("ACTIVE")
                 .build());
-        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(baseUrl, HttpMethod.PUT, entity, ExceptionMapper.ErrorResponse.class);
+        String url = baseUrl + "/777777";
+        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(url, HttpMethod.PUT, entity, ExceptionMapper.ErrorResponse.class);
 
         // Then
         assertEquals(HttpStatus.NOT_FOUND, exchange.getStatusCode());
@@ -315,8 +316,8 @@ public class AccountControllerTest {
         Account account = givenAccount();
 
         // When
-        baseUrl += "/" + account.getId();
-        ResponseEntity<AccountDTO> response = restTemplate.exchange(baseUrl, HttpMethod.DELETE, null, AccountDTO.class);
+        String url = baseUrl + "/" + account.getId();
+        ResponseEntity<AccountDTO> response = restTemplate.exchange(url, HttpMethod.DELETE, null, AccountDTO.class);
 
         // Then
         assertNotNull(response);
@@ -329,8 +330,8 @@ public class AccountControllerTest {
         // Given no account
 
         // When
-        baseUrl += "/777777";
-        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(baseUrl, HttpMethod.DELETE, null, ExceptionMapper.ErrorResponse.class);
+        String url = baseUrl + "/777777";
+        ResponseEntity<ExceptionMapper.ErrorResponse> exchange = restTemplate.exchange(url, HttpMethod.DELETE, null, ExceptionMapper.ErrorResponse.class);
 
         // Then
         assertEquals(HttpStatus.NOT_FOUND, exchange.getStatusCode());
