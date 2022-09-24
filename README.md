@@ -127,8 +127,7 @@ This project will pre-populate the database with the following accounts:
 
 All endpoints have been documented using swagger. Once the project is up and running the documentation can be accessed via this link: 
 
-<a href="localhost:8080/swagger-ui.html">localhost:8080/swagger-ui.html</a>
-
+[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -141,4 +140,5 @@ Fahad Ali Sajad - [@LinkedIn](https://www.linkedin.com/in/fahad-ali-sajad-380a25
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/fahad-ali-sajad-380a25127/
+[swagger-url]: http://localhost:8080/swagger-ui.html
 [product-screenshot]: images/screenshot.png
