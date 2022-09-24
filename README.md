@@ -32,6 +32,7 @@
     <li>
       <a href="#intro">Introduction</a>
       <ul>
+        <li><a href="#high-level-requirements">High level requirements</a></li>
         <li><a href="#acceptance-criteria">Acceptance criteria</a></li>
         <li><a href="#built-with">Built with</a></li>
       </ul>
@@ -53,7 +54,7 @@
 ## Introduction
 A new intra-bank payment transfer system to allow real time payments between internal accounts.
 
-**High Level Requirements:**
+### High Level Requirements
 
 System should be:
 - Accessible by Restful Webservices
