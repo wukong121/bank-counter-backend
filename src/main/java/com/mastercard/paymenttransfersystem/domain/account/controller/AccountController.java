@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public class AccountController {
     @ApiResponse(responseCode = "400", description = "Insufficient funds")
     @ApiResponse(responseCode = "400", description = "Invalid transfer amount")
     @ApiResponse(responseCode = "400", description = "Cannot transfer to own account")
-    public AccountBalanceDTO transferMoney(@PathVariable Long accountId, @RequestBody TransferRequestDTO dto) {
+    public AccountBalanceDTO transferMoney(@PathVariable Long accountId, @RequestBody @Validated TransferRequestDTO dto) {
         return accountMapper.toBalanceDTO(accountService.transferMoney(accountId, dto.getRecipientAccountId(), dto.getAmount()));
     }
 

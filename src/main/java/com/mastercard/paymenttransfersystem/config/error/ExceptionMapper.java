@@ -10,10 +10,14 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.stream.Collectors;
 
 
 /**
@@ -46,9 +50,22 @@ public class ExceptionMapper {
         return logAndGetResponse(HttpStatus.BAD_REQUEST.value(), e);
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        String errorMessage = e.getBindingResult().getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(", "));
+
+        return logAndGetResponse(HttpStatus.BAD_REQUEST.value(), errorMessage);
+    }
+
     private ResponseEntity<ErrorResponse> logAndGetResponse(int errorCode, Exception e) {
         ErrorResponse response = new ErrorResponse(errorCode, e.getMessage());
         logger.error(e.getMessage(), e);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode));
+    }
+
+    private ResponseEntity<ErrorResponse> logAndGetResponse(int errorCode, String errorMessage) {
+        ErrorResponse response = new ErrorResponse(errorCode, errorMessage);
+        logger.error(errorMessage);
         return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode));
     }
 
