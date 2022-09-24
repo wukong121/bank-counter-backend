@@ -32,7 +32,7 @@
     <li>
       <a href="#intro">Introduction</a>
       <ul>
-        <li><a href="#approach">Approach</a></li>
+        <li><a href="#acceptance-criteria">Acceptance criteria</a></li>
         <li><a href="#built-with">Built with</a></li>
       </ul>
     </li>
@@ -43,11 +43,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li>
-      <a href="#future-work-and-limitations">Future work and limitations</a>
-    </li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
