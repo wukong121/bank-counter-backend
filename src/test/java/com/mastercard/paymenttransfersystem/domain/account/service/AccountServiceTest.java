@@ -33,12 +33,12 @@ public class AccountServiceTest {
     private AccountRepository accountRepository;
     @Mock
     private TransactionService transactionService;
-    private AccountService accountService;
+    private AccountServiceImpl accountService;
 
 
     @BeforeEach
     void setUp() {
-        accountService = new AccountService(accountRepository, transactionService);
+        accountService = new AccountServiceImpl(accountRepository, transactionService);
     }
 
     @Test

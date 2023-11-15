@@ -1,7 +1,7 @@
 package com.mastercard.paymenttransfersystem.domain.account.controller;
 
 import com.mastercard.paymenttransfersystem.domain.account.controller.dto.*;
-import com.mastercard.paymenttransfersystem.domain.account.service.IAccountService;
+import com.mastercard.paymenttransfersystem.domain.account.service.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,7 +20,7 @@ import java.util.List;
 @Tag(name = "Account")
 public class AccountController {
 
-    private final IAccountService accountService;
+    private final AccountService accountService;
     private final AccountMapper accountMapper;
 
     @GetMapping(path = "/{accountId}/balance")
