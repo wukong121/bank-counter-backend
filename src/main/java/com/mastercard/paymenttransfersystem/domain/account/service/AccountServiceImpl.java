@@ -10,7 +10,7 @@ import com.mastercard.paymenttransfersystem.domain.account.model.exception.Inval
 import com.mastercard.paymenttransfersystem.domain.account.model.exception.SelfTransferException;
 import com.mastercard.paymenttransfersystem.domain.account.repository.AccountRepository;
 import com.mastercard.paymenttransfersystem.domain.transaction.model.Transaction;
-import com.mastercard.paymenttransfersystem.domain.transaction.service.TransactionService;
+import com.mastercard.paymenttransfersystem.domain.transaction.service.TransactionServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
-    private final TransactionService transactionService;
+    private final TransactionServiceImpl transactionService;
     @Value("${accounts.mini-statement.size}")
     private Long sizeOfMiniStatement;
 

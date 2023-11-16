@@ -18,6 +18,7 @@ import java.util.List;
 @RequestMapping("api/v1/accounts")
 @RequiredArgsConstructor
 @Tag(name = "Account")
+@CrossOrigin
 public class AccountController {
 
     private final AccountService accountService;

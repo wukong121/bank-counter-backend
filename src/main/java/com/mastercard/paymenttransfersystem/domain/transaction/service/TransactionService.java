@@ -1,28 +1,23 @@
 package com.mastercard.paymenttransfersystem.domain.transaction.service;
 
 import com.mastercard.paymenttransfersystem.domain.transaction.model.Transaction;
-import com.mastercard.paymenttransfersystem.domain.transaction.repository.TransactionRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-/**
- * The service that handles requested operations for the transaction domain
- */
-@Service
-@RequiredArgsConstructor
-public class TransactionService implements ITransactionService {
+public interface TransactionService {
 
-    private final TransactionRepository transactionRepository;
+    /**
+     * Retrieve the latest transaction of a given account
+     * @param accountId an identifier belonging to an account
+     * @param numberOfTransactions the number of transaction to be returned by the method
+     * @return a collection of the latest transactions of a given account
+     */
+    Collection<Transaction> getLatestTransactions(Long accountId, Long numberOfTransactions);
 
-    @Override
-    public Collection<Transaction> getLatestTransactions(Long accountId, Long numberOfTransactions) {
-        return transactionRepository.findLatestTransactions(accountId, numberOfTransactions);
-    }
-
-    @Override
-    public Transaction saveTransaction(Transaction transaction) {
-        return transactionRepository.save(transaction);
-    }
+    /**
+     * Create a new transaction in the repository
+     * @param transaction an object representing the transaction that is to be created
+     * @return the newly created transaction object
+     */
+    Transaction saveTransaction(Transaction transaction);
 }

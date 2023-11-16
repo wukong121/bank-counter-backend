@@ -21,14 +21,14 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 public class TransactionServiceTest {
 
-    private TransactionService transactionService;
+    private TransactionServiceImpl transactionService;
 
     @Mock
     private TransactionRepository transactionRepository;
 
     @BeforeEach
     void setUp() {
-        transactionService = new TransactionService(transactionRepository);
+        transactionService = new TransactionServiceImpl(transactionRepository);
     }
 
     @Test

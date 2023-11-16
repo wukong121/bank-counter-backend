@@ -9,7 +9,7 @@ import com.mastercard.paymenttransfersystem.domain.account.model.exception.Inval
 import com.mastercard.paymenttransfersystem.domain.account.model.exception.SelfTransferException;
 import com.mastercard.paymenttransfersystem.domain.account.repository.AccountRepository;
 import com.mastercard.paymenttransfersystem.domain.transaction.model.Transaction;
-import com.mastercard.paymenttransfersystem.domain.transaction.service.TransactionService;
+import com.mastercard.paymenttransfersystem.domain.transaction.service.TransactionServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,7 +32,7 @@ public class AccountServiceTest {
     @Mock
     private AccountRepository accountRepository;
     @Mock
-    private TransactionService transactionService;
+    private TransactionServiceImpl transactionService;
     private AccountServiceImpl accountService;
 
 
