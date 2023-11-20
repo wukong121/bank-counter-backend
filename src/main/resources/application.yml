@@ -19,3 +19,15 @@ server:
 accounts:
   mini-statement:
     size: 20
+
+token:
+  # Token valid time, unit minute 24*60=1440
+  tokenExpireTime: 1440
+  # Update the token time 2*60=120
+  refreshCheckTime: 120
+  # RefreshToken expiration time，unit minute 24*60=1440
+  refreshTokenExpireTime: 1440
+  # Shiro cache expiry date，unit minute, 2*60=120
+  shiroCacheExpireTime: 120
+  # Token encryption key
+  secretKey: peterw3
