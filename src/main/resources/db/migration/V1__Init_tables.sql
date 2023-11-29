@@ -1,22 +1,31 @@
-create table account
+CREATE TABLE account
 (
-    id         bigint auto_increment
-        primary key,
-    balance    DECIMAL   default 0     not null,
-    currency   varchar(8)              null,
-    state      int                     not null default 0,
-    created_at  timestamp    not null default current_timestamp,
-    modified_at timestamp    not null default current_timestamp on update current_timestamp
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    balance     DECIMAL             DEFAULT 0 NOT NULL,
+    currency    VARCHAR(8) NULL,
+    state       INT        NOT NULL DEFAULT 0,
+    created_at  TIMESTAMP  NOT NULL DEFAULT current_timestamp,
+    modified_at TIMESTAMP  NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp
 );
 
-create table transaction
+CREATE TABLE transaction
 (
-    id         bigint auto_increment
-        primary key,
-    sender_account_id    bigint        not null,
-    recipient_account_id bigint        not null,
-    amount               DECIMAL       not null,
-    currency   varchar(8)              null,
-    created_at  timestamp    not null default current_timestamp,
-    modified_at timestamp    not null default current_timestamp on update current_timestamp
+    id                   BIGINT AUTO_INCREMENT PRIMARY KEY,
+    sender_account_id    BIGINT     NOT NULL,
+    recipient_account_id BIGINT     NOT NULL,
+    amount               DECIMAL    NOT NULL,
+    currency             VARCHAR(8) NULL,
+    created_at           TIMESTAMP  NOT NULL DEFAULT current_timestamp,
+    modified_at          TIMESTAMP  NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp
+);
+
+CREATE TABLE user
+(
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name        VARCHAR(10) NOT NULL,
+    phone       VARCHAR(15) NOT NULL,
+    email       VARCHAR(30) NOT NULL,
+    password    VARCHAR(30) NOT NULL,
+    created_at  TIMESTAMP   NOT NULL DEFAULT current_timestamp,
+    modified_at TIMESTAMP   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp
 );
