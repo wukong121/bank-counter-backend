@@ -1,13 +1,15 @@
 package com.mastercard.paymenttransfersystem.domain.login.controller.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder(toBuilder = true)
-public class LoginDTO {
-    
-    private String userName;
-    
+@NoArgsConstructor
+@AllArgsConstructor
+public class LoginRequest {
+    private String email;
     private String password;
 }

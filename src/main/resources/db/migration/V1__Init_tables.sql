@@ -19,7 +19,7 @@ CREATE TABLE transaction
     modified_at          TIMESTAMP  NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp
 );
 
-CREATE TABLE user
+CREATE TABLE "user"
 (
     id          BIGINT AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(10) NOT NULL,
